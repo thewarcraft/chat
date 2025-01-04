@@ -19,14 +19,14 @@ def output_response(text, response)
 end
 
 def simulate_client(name)
-	url = URI.parse('http://localhost/')
+	url = URI.parse('https://thewarcraft.github.io/chat/')
 	Net::HTTP.start url.host, url.port do |con|
 		while true do
-			response = con.get('/simple-chat/messages.json')
+			response = con.get('/chat/messages.json')
 			output_response('.', response)
 			
 			if rand <= 0.25
-				response = con.post('/simple-chat/chat.php', "name=#{URI.escape(name)}&content=#{URI.escape(rand.inspect + ' from ' + name)}")
+				response = con.post('/chat/chat.php', "name=#{URI.escape(name)}&content=#{URI.escape(rand.inspect + ' from ' + name)}")
 				output_response('p', response)
 			end
 			
